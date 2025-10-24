@@ -19,13 +19,16 @@ const Home: React.FC = () => {
     fetchTasks();
   };
 
-  const filteredTasks = tasks.filter(task => 
-    task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    task.description?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+// Fixed: Ensure tasks is always an array before filtering
+  const filteredTasks = Array.isArray(tasks) 
+    ? tasks.filter(task => 
+        task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        task.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   const completedTasks = filteredTasks.length;
-  const totalTasks = tasks.length;
+  const totalTasks = Array.isArray(tasks) ? tasks.length : 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 py-12 px-4 sm:px-6">
