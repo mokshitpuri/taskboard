@@ -1,8 +1,15 @@
 import axios from 'axios';
 
+// Choose which backend to use
+// For Node backend
 const apiClient = axios.create({
-  // baseURL: 'http://localhost:5000/api/tasks', // node 
-  baseURL: 'http://127.0.0.1:8000/api/v1/tasks', // FastAPI base URL
+  baseURL: process.env.REACT_APP_NODE_API,
+  headers: { 'Content-Type': 'application/json' },
+});
+
+// For FastAPI backend (if needed separately)
+export const fastApiClient = axios.create({
+  baseURL: process.env.REACT_APP_FASTAPI_API,
   headers: { 'Content-Type': 'application/json' },
 });
 
